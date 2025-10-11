@@ -1,0 +1,177 @@
+name: Release Provenance & Tagging
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+  attestations: write
+
+jobs:
+  build-and-attest:
+    name: Build and Create Attestation
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+      artifact-url: ${{ steps.upload.outputs.artifact-url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up build environment
+        run: |
+          echo "Building release artifacts..."
+          mkdir -p dist
+          # Add your build commands here
+          echo "Build completed at $(date)" > dist/BUILD_INFO.txt
+          echo "Commit: ${{ github.sha }}" >> dist/BUILD_INFO.txt
+          echo "Ref: ${{ github.ref }}" >> dist/BUILD_INFO.txt
+
+      - name: Generate SBOM (Software Bill of Materials)
+        run: |
+          echo "Generating SBOM..."
+          # Install SBOM generator (e.g., syft, cyclonedx)
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+          syft . -o json > dist/sbom.json
+          syft . -o spdx-json > dist/sbom.spdx.json
+
+      - name: Upload build artifacts
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: dist/
+          retention-days: 90
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: 'dist/*'
+
+  create-release:
+    name: Create GitHub Release
+    needs: build-and-attest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: dist/
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Generate changelog
+          echo "## What's Changed" > RELEASE_NOTES.md
+          git log --pretty=format:"- %s (%h)" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> RELEASE_NOTES.md || echo "- Initial release" >> RELEASE_NOTES.md
+          
+          echo "" >> RELEASE_NOTES.md
+          echo "## Provenance Information" >> RELEASE_NOTES.md
+          echo "- Build Timestamp: $(date -u +\"%Y-%m-%dT%H:%M:%SZ\")" >> RELEASE_NOTES.md
+          echo "- Commit SHA: ${{ github.sha }}" >> RELEASE_NOTES.md
+          echo "- Artifact ID: ${{ needs.build-and-attest.outputs.artifact-id }}" >> RELEASE_NOTES.md
+          echo "- Artifact URL: ${{ needs.build-and-attest.outputs.artifact-url }}" >> RELEASE_NOTES.md
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.release_notes.outputs.version }}
+          name: Release ${{ steps.release_notes.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          files: |
+            dist/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sign-artifacts:
+    name: Sign Release Artifacts
+    needs: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifacts-${{ github.sha }}
+          path: dist/
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign artifacts with Cosign
+        run: |
+          for file in dist/*; do
+            echo "Signing $file..."
+            cosign sign-blob --yes $file --bundle ${file}.cosign.bundle
+          done
+
+      - name: Upload signed artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-release-artifacts-${{ github.sha }}
+          path: dist/*.cosign.bundle
+          retention-days: 90
+
+  provenance-report:
+    name: Generate Provenance Report
+    needs: [build-and-attest, create-release, sign-artifacts]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create comprehensive provenance report
+        run: |
+          cat > provenance-report.md << EOF
+          # Release Provenance Report
+          
+          ## Release Information
+          - **Version**: ${GITHUB_REF#refs/tags/}
+          - **Commit SHA**: ${{ github.sha }}
+          - **Build Date**: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          - **Workflow Run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
+          ## Artifact Information
+          - **Artifact ID**: ${{ needs.build-and-attest.outputs.artifact-id }}
+          - **Artifact URL**: ${{ needs.build-and-attest.outputs.artifact-url }}
+          
+          ## Security Attestations
+          - Build provenance attestation: ✓ Generated
+          - Artifacts signed with Cosign: ✓ Completed
+          - SBOM generated: ✓ Available
+          
+          ## Verification
+          To verify the provenance of this release:
+          1. Download the attestation bundle
+          2. Verify signatures using Cosign
+          3. Check SBOM for dependencies
+          
+          ## Audit Trail
+          This release was automatically built and signed by GitHub Actions.
+          All build steps are auditable via the workflow run linked above.
+          EOF
+
+      - name: Upload provenance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: provenance-report
+          path: provenance-report.md
+          retention-days: 365
