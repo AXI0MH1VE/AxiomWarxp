@@ -92,7 +92,7 @@ jobs:
           echo "- Artifact URL: ${{ needs.build-and-attest.outputs.artifact-url }}" >> RELEASE_NOTES.md
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.release_notes.outputs.version }}
           name: Release ${{ steps.release_notes.outputs.version }}
