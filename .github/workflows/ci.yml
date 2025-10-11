@@ -204,23 +204,27 @@ jobs:
       - name: Validate deployment configuration
         run: |
           # Check Docker configurations
-          if [ -f DevDollz/docker-compose.yml ]; then
+          if [ -f DevDollz/docker-compose.yml ] && command -v docker-compose &> /dev/null; then
             docker-compose -f DevDollz/docker-compose.yml config -q
             echo "Docker compose validation passed"
           else
-            echo "Docker compose file not found, skipping"
+            echo "Docker compose file not found or docker-compose not installed, skipping"
           fi
           # Validate Terraform (if present)
-          if [ -f "TranscendentAI/deployment/terraform/main.tf" ]; then
+          if [ -f "TranscendentAI/deployment/terraform/main.tf" ] && command -v terraform &> /dev/null; then
             cd TranscendentAI/deployment/terraform
             terraform init -backend=false
             terraform validate
             echo "Terraform validation passed"
+          else
+            echo "Terraform not found or not installed, skipping"
           fi
           # Validate Kubernetes manifests
-          if [ -f "TranscendentAI/deployment/k8s/deployment.yaml" ]; then
+          if [ -f "TranscendentAI/deployment/k8s/deployment.yaml" ] && command -v kubectl &> /dev/null; then
             kubectl --dry-run=client apply -f TranscendentAI/deployment/k8s/
             echo "Kubernetes validation passed"
+          else
+            echo "Kubernetes not found or kubectl not installed, skipping"
           fi
   release:
     name: Create Release
