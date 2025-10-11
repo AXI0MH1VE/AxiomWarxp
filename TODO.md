@@ -35,8 +35,8 @@ Consolidate all existing Axiom-related projects from the current directory into 
 - [x] git push origin main
 
 ### 5. Verification and Cleanup
-- [ ] List contents of AxiomWarxp to verify structure.
-- [ ] Optionally, remove empty directories from root or confirm completion.
+- [x] List contents of AxiomWarxp to verify structure.
+- [x] Optionally, remove empty directories from root or confirm completion.
 
 ## Notes
 - Use Windows 'move' command for file/directory operations.
