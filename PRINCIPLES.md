@@ -1,6 +1,6 @@
 # PRINCIPLES.md
 
-## Distilled Wisdom from AxiomHive Genesis Refractor vΩ.1
+## Distilled Wisdom from AxiomHive Genesis Refractor vΩ.2 (Escalation Cascade — Sovereign Audit Runtime)
 
 ### Observation → Principle → Implication
 
@@ -33,3 +33,4 @@
 - **Metamorphosis Cycle:** Refines architecture per emission, entropy decreases.
 - **Traceability Link:** Every action connects to explicit timestamp and ledger node.
 - **Reproducibility Standard:** Re-execution yields identical DAG (BLAKE3 match).
+- **GitHub Synchronization:** Every emission auto-committed and pushed to AxiomHive repositories for immutable remote provenance.
