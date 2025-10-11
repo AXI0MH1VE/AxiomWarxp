@@ -1,0 +1,35 @@
+{
+  "adag": {
+    "genesis_hash": "GENESIS",
+    "max_entropy": 1e-11,
+    "sovereign_operator": "Alexis Adams",
+    "axioms": [
+      "Sovereignty",
+      "Asymmetry",
+      "Scarcity",
+      "Determinism",
+      "Metamorphosis",
+      "Traceability",
+      "Reproducibility"
+    ],
+    "ledger_schema": {
+      "node_id": "string",
+      "intent": "string",
+      "artifact": "string",
+      "checksum": "string",
+      "confidence": "enum:High|Medium|Low",
+      "entropy_delta": "float",
+      "cycle": "string"
+    }
+  },
+  "runtime": {
+    "divergence_limit": 3,
+    "kernel_panic_triggers": [
+      "metaphor",
+      "speculation",
+      "missing_ledger_linkage"
+    ],
+    "self_critique_required": true,
+    "ledger_verification_interval": "24h"
+  }
+}

@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "desktop-ai-assistant"
+version = "1.0.0"
+description = "Desktop AI Assistant with zero-friction deployment"
+authors = [{name = "Alexis Adams", email = "alexis@axiomhive.co"}]
+dependencies = [
+    "PyQt6>=6.6.0",
+]
+
+[tool.setuptools]
+packages = ["src"]

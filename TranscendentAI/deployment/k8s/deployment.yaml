@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcendent-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transcendent-ai
+  template:
+    metadata:
+      labels:
+        app: transcendent-ai
+    spec:
+      containers:
+      - name: transcendent-ai
+        image: transcendent-ai:latest
+        ports:
+        - containerPort: 8080

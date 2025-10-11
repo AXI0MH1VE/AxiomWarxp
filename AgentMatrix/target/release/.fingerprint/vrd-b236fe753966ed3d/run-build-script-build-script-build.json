@@ -1,0 +1,1 @@
+{"rustc":7868289081541623310,"features":"","declared_features":"","target":0,"profile":0,"path":0,"deps":[[12445744772306348286,"build_script_build",false,14968721367214348587]],"local":[{"RerunIfChanged":{"output":"release\\build\\vrd-b236fe753966ed3d\\output","paths":["build.rs"]}}],"rustflags":[],"config":0,"compile_kind":0}

@@ -1,0 +1,14 @@
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\serde-77b341f24f8ab5e9.d: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\build\serde-a09402850eab3e9f\out/private.rs
+
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\libserde-77b341f24f8ab5e9.rlib: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\build\serde-a09402850eab3e9f\out/private.rs
+
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\libserde-77b341f24f8ab5e9.rmeta: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\build\serde-a09402850eab3e9f\out/private.rs
+
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\build\serde-a09402850eab3e9f\out/private.rs:
+
+# env-dep:OUT_DIR=c:\\Users\\devdo\\Desktop\\FullzAXiom\\AgentMatrix\\target\\release\\build\\serde-a09402850eab3e9f\\out

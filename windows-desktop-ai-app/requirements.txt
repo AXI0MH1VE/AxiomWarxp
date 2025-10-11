@@ -1,0 +1,10 @@
+# Production Requirements
+PyQt6>=6.6.0
+
+# AI Dependencies (uncomment and specify versions as needed for deployment)
+# If using API models:
+# openai>=1.20.0
+# anthropic
+
+# If using embedded models (Zero-Dependency):
+# llama-cpp-python

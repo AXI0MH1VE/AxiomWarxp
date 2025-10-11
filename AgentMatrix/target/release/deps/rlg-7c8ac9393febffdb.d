@@ -1,0 +1,12 @@
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\rlg-7c8ac9393febffdb.d: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\config.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_format.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_level.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\macros.rs
+
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\librlg-7c8ac9393febffdb.rlib: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\config.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_format.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_level.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\macros.rs
+
+c:\Users\devdo\Desktop\FullzAXiom\AgentMatrix\target\release\deps\librlg-7c8ac9393febffdb.rmeta: C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\lib.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\config.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_format.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_level.rs C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\macros.rs
+
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\lib.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\config.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_format.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\log_level.rs:
+C:\Users\devdo\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\rlg-0.0.4\src\macros.rs:

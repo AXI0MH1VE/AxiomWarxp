@@ -1,0 +1,10 @@
+name: Validate U.D.P.
+on: [push]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: jsonschema -i STRATEGY.md schemas/strategy_schema.json  # Stub for MD
+      - run: pytest ../DevDollz/tests/
+      - run: cargo check ../AgentMatrix/

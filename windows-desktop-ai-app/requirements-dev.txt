@@ -1,0 +1,7 @@
+# Development and Build Requirements
+-r requirements.txt
+PyInstaller>=6.0.0
+pytest
+pytest-qt
+black
+isort

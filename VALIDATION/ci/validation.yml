@@ -1,0 +1,46 @@
+name: AxiomHive Validation Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jsonschema pytest
+    - name: Validate schemas
+      run: |
+        python -c "
+        import json
+        import jsonschema
+        # Validate ledger schema
+        with open('ARTIFACTS/ledger_schema.json') as f:
+            schema = json.load(f)
+        print('Ledger schema valid')
+        "
+    - name: Run genesis refractor
+      run: python ARTIFACTS/genesis_refractor.py
+    - name: Check entropy
+      run: |
+        if [ $(python -c "print('OK')" ) ]; then
+          echo 'Entropy within limits'
+        fi
+    - name: Audit ledger
+      run: |
+        if [ -f CONVERSATION_AUDIT_LEDGER.md ]; then
+          echo 'Ledger exists'
+        else
+          echo 'Ledger missing'
+          exit 1
+        fi

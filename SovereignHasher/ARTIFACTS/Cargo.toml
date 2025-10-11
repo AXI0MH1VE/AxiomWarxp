@@ -1,0 +1,19 @@
+[package]
+name = "sovereign-hasher"
+version = "0.1.0"
+authors = ["Alexis Adams <architect@sovereignty.io>"]
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# The cryptographic library is the deterministic core.
+sha2 = "0.10.6"
+# Glue for WebAssembly compatibility.
+wasm-bindgen = "0.2.84"
+
+# Optimization mandate for Runtime Efficiency (SIMD Vectorization).
+[profile.release]
+lto = true
+opt-level = 's' # Optimize for size/speed tradeoff.

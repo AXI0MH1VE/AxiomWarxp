@@ -1,0 +1,98 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "Axiom Terminal",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "execute": true,
+        "sidecar": true,
+        "open": true
+      },
+      "fs": {
+        "all": false,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "createDir": true,
+        "scope": ["$APPDATA/axiom-terminal/*"]
+      },
+      "path": {
+        "all": true
+      },
+      "window": {
+        "all": false,
+        "create": true,
+        "center": true,
+        "maximize": true,
+        "minimize": true,
+        "close": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": ["msi", "nsis"],
+      "identifier": "com.axiomhive.terminal",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "wix": {
+          "language": "en-US",
+          "template": "wix/main.wxs"
+        },
+        "nsis": {
+          "installerIcon": "icons/icon.ico",
+          "license": "LICENSE",
+          "headerImage": "icons/installer-header.bmp",
+          "sidebarImage": "icons/installer-sidebar.bmp",
+          "installMode": "perUser",
+          "languages": ["en-US"],
+          "displayLanguageSelector": false
+        },
+        "webviewInstallMode": {
+          "type": "embedBootstrapper"
+        }
+      },
+      "shortDescription": "Next-generation terminal with AI superpowers",
+      "longDescription": "Axiom Terminal is a blazingly fast, AI-powered terminal emulator for developers. Features include intelligent command completion, natural language to shell translation, and a powerful plugin ecosystem.",
+      "externalBin": [],
+      "resources": []
+    },
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:"
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Axiom Terminal",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "decorations": false,
+        "transparent": true,
+        "center": true
+      }
+    ]
+  }
+}

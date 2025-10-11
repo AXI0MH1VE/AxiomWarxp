@@ -1,0 +1,10 @@
+{
+  "agents": [
+    {"name": "monitoring_agent", "enabled": true},
+    {"name": "diagnostic_agent", "enabled": true},
+    {"name": "codegen_agent", "enabled": true},
+    {"name": "test_agent", "enabled": true},
+    {"name": "security_agent", "enabled": true},
+    {"name": "zkproof_agent", "enabled": true}
+  ]
+}

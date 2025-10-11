@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AxiomHive A-DAG Ledger Node",
+  "type": "object",
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "description": "Unique node identifier (timestamp.hash)"
+    },
+    "intent": {
+      "type": "string",
+      "description": "Operator's directive or query"
+    },
+    "artifact": {
+      "type": "string",
+      "description": "Path to generated artifact or code"
+    },
+    "checksum": {
+      "type": "string",
+      "description": "BLAKE3 hash of the node"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["High", "Medium", "Low"],
+      "description": "Confidence level in the emission"
+    },
+    "entropy_delta": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1e-10,
+      "description": "Entropy change (nats)"
+    },
+    "cycle": {
+      "type": "string",
+      "pattern": "^v[Ω0-9.]+$",
+      "description": "Version cycle (e.g., vΩ, v1.3)"
+    }
+  },
+  "required": ["node_id", "intent", "checksum", "confidence", "entropy_delta", "cycle"],
+  "additionalProperties": false
+}
