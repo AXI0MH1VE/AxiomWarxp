@@ -16,12 +16,13 @@
 
 ### Visual A-DAG Projection
 ```
-GENESIS (vΩ)
-├── Node: Boot State Verification
+GENESIS (vΩ.2)
+├── Node: Boot State + GitHub Auth Verification
 ├── Node: Strategy Formulation
 ├── Node: Principle Distillation
 ├── Node: Artifact Generation
 ├── Node: Deployment Execution
+├── Node: GitHub Synchronization
 ├── Node: Validation Pipeline
 └── Node: Ledger Audit
     └── Equilibrium: CYCLE VERIFIED
