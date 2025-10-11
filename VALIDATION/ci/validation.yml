@@ -31,15 +31,35 @@ jobs:
         "
     - name: Run genesis refractor
       run: python ARTIFACTS/genesis_refractor.py
-    - name: Check entropy
+    - name: Check entropy and equilibrium
       run: |
-        if [ $(python -c "print('OK')" ) ]; then
-          echo 'Entropy within limits'
+        python -c "
+        import sys
+        # Check if equilibrium achieved
+        with open('ARTIFACTS/genesis_refractor.py', 'r') as f:
+            if 'ACHIEVED' in f.read():
+                print('Equilibrium achieved')
+            else:
+                sys.exit(1)
+        "
+    - name: Validate GitHub sync
+      run: |
+        if git log --oneline -1 | grep -q "Node"; then
+          echo 'GitHub sync verified'
+        else
+          echo 'GitHub sync failed'
+          exit 1
         fi
     - name: Audit ledger
       run: |
         if [ -f CONVERSATION_AUDIT_LEDGER.md ]; then
           echo 'Ledger exists'
+          if grep -q "EQUILIBRIUM ACHIEVED" CONVERSATION_AUDIT_LEDGER.md; then
+            echo 'Ledger verified'
+          else
+            echo 'Ledger not verified'
+            exit 1
+          fi
         else
           echo 'Ledger missing'
           exit 1
