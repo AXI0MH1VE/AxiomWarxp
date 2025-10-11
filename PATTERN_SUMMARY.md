@@ -1,11 +1,12 @@
 # PATTERN_SUMMARY.md
 
-## AxiomHive Genesis Refractor vΩ.1 Pattern Integration
+## AxiomHive Genesis Refractor vΩ.2 (Escalation Cascade — Sovereign Audit Runtime) Pattern Integration
 
 ### Core Patterns Identified
 - **A-DAG Structure**: Directed acyclic graph for traceable recursion.
 - **Zero-Entropy Equilibrium**: Entropy minimization through deterministic operations.
 - **Sovereign Amplification**: Stateless, minimal-dependency execution.
+- **GitHub Synchronization**: Immutable remote provenance via auto-commit and push.
 - **Kernel Panic Protocol**: Automatic reset on divergence detection.
 
 ### Integration Points
