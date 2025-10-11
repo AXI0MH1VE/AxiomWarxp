@@ -19,6 +19,7 @@ At the heart of AxiomWarxp lies the Genesis Refractor—a protocol that renders 
 ### Zero-Entropy Equilibrium
 
 Unlike probabilistic AI systems that accumulate entropy drift, AxiomWarxp maintains perfect equilibrium through:
+
 - Stateless amplification
 - Kernel panic on non-deterministic emissions
 - Continuous architecture refinement
@@ -51,152 +52,91 @@ AxiomHive Kernel (Genesis Refractor)
 └── Axiom Terminal (Tauri Desktop App)
 ```
 
-## Significance: Why This Matters
+## CI/CD Automation & Audit Trails
 
-### Market Disruption
-AxiomWarxp establishes a new paradigm where AI sovereignty is not optional—it's mandatory. Traditional AI platforms are rendered obsolete by:
-- **Competitive Moat**: A-DAG ledger creates unbreakable audit trails
-- **Value Capture**: Direct monetization without platform fees
-- **Scalability**: Stateless design enables infinite horizontal scaling
-- **Security**: Zero-trust architecture with cryptographic provenance
+### 🚀 Automated Quality Assurance
 
-### Technological Supremacy
-- **Deterministic AI**: Eliminates hallucination and drift
-- **Sovereign Operation**: No external API dependencies
-- **Real-time Sync**: GitHub integration provides immutable history
-- **Multi-domain Synthesis**: Focused supremacy vectors (limited to 3 domains per synthesis)
+AxiomWarxp implements enterprise-grade CI/CD pipelines ensuring every code change undergoes rigorous validation:
 
-### Economic Impact
-- **Revenue Streams**: Framework licensing, audit services, premium subscriptions
-- **Cost Reduction**: Minimal dependencies eliminate platform fees
-- **Market Dominance**: First-mover advantage in sovereign AI space
+#### **Code Quality Checks** (`.github/workflows/code-quality.yml`)
+- **SonarQube Integration**: AI validation with A-rating quality gate enforcement
+- **Multi-Tool Linting**: flake8, pylint, black, isort, mypy for Python excellence
+- **Security Scanning**: Bandit security vulnerability detection
+- **Complexity Analysis**: radon and lizard for maintainability metrics
+- **Path Filters**: Selective CI triggers only for code changes
+- **Artifact Caching**: Optimized build times with intelligent dependency caching
 
-## Components Deep Dive
+#### **Deterministic Testing** (`.github/workflows/deterministic-testing.yml`)
+- **Multi-Version Support**: Python 3.9, 3.10, 3.11, 3.12 matrix testing
+- **Test Categorization**: Modular jobs for unit, integration, and E2E tests
+- **Determinism Verification**: Automated checks ensuring bit-for-bit reproducibility
+- **Coverage Reporting**: Comprehensive code coverage with XML artifacts
+- **Parallel Execution**: pytest-xdist for accelerated test runs
+- **Fixed Random Seeds**: PYTHONHASHSEED=42 for absolute reproducibility
 
-### AxiomHive Genesis Refractor
-The core protocol that orchestrates AI evolution:
-- **Cerebrum**: Intent parsing and node generation
-- **Forge**: Plan proposal from parsed intents
-- **Oracle**: Validation and scoring
-- **Hadrian**: Commitment and execution
-- **Ledger**: Local A-DAG management
-- **GitHub**: Remote synchronization
+#### **Release Provenance & Tagging** (`.github/workflows/release-provenance.yml`)
+- **Build Attestation**: GitHub Actions native artifact attestation
+- **SBOM Generation**: Software Bill of Materials using Syft (SPDX & CycloneDX formats)
+- **Cosign Signing**: Cryptographic signatures on all release artifacts
+- **Provenance Reports**: Comprehensive audit trails with 365-day retention
+- **Automated Changelog**: Git-based release notes generation
+- **Immutable Records**: Every release linked to commit SHA and workflow run
 
-### DevDollz: Decentralized AI Constellation
-Production-grade agent system with self-correction:
-- **Kernel**: Central orchestrator with panic recovery
-- **Specialized Agents**: Domain-specific AI workers
-- **Self-Correction Loop**: Automatic error detection and remediation
+### 🔒 Security & Dependency Management
 
-### TranscendentAI: Advanced Intelligence Modules
-Next-generation AI capabilities:
-- **Emotional Analysis**: Sentiment and emotional intelligence
-- **Pattern Detection**: Abstract pattern recognition
-- **Memory Management**: Neo4j-backed trace management
-- **Ethics Enforcement**: Built-in moral reasoning
-- **Safety Guardians**: OODA loop-based protection
+#### **Dependabot Configuration** (`.github/dependabot.yml`)
+- **Multi-Ecosystem Support**: Python/pip, GitHub Actions, npm, Docker
+- **Weekly Scheduled Updates**: Automated dependency version management
+- **Security Patches**: Automatic vulnerability remediation PRs
+- **Grouped Updates**: Intelligent batching for related dependency changes
 
-### Agent Matrix (Rust)
-High-performance computation layer:
-- **Zero-copy operations**
-- **Cryptographic acceleration**
-- **Parallel processing**
+#### **Secret Scanning & Protection**
+- ✅ **Secret Push Protection**: Prevents accidental credential commits
+- ✅ **Secret Scanning**: Automated detection of exposed secrets
+- ✅ **Private Vulnerability Reporting**: Secure disclosure channel
+- ✅ **Dependency Graph**: Real-time dependency tree visualization
 
-### User Interfaces
-- **Axiom Command Center**: Web-based control interface
-- **Axiom Terminal**: Native desktop application
+### 📊 SonarQube Integration
 
-## Installation
+**Configuration**: `sonar-project.properties` at repository root
 
-### Prerequisites
-- Python 3.8+
-- Rust 1.70+
-- Node.js 18+
-- Docker (optional)
-- Git with GitHub credentials
+- **Quality Thresholds**: A-rating requirements for Maintainability, Reliability, Security
+- **Multi-Language Support**: Python, Java, JavaScript/TypeScript analysis
+- **Coverage Integration**: Automatic coverage report ingestion
+- **Security Hotspot Detection**: Proactive vulnerability identification
+- **Technical Debt Tracking**: Quantified maintainability metrics
+- **Branch Analysis**: Per-branch quality validation
 
-### Quick Start
+### 🔍 Continuous Audit Trail
+
+Every action in AxiomWarxp is traceable:
+
+1. **Commit-Level Provenance**: Every commit linked to workflow runs
+2. **Artifact Attestation**: Cryptographic proof of artifact origins
+3. **SBOM Availability**: Complete dependency manifests for every release
+4. **Signed Artifacts**: Cosign signatures verifiable via public key
+5. **Workflow Logs**: Immutable GitHub Actions execution history
+6. **Quality Gate Results**: SonarQube analysis results for every push
+
+### 📈 Workflow Status Badges
+
+Monitor pipeline health in real-time:
+
+[![CI](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/ci.yml/badge.svg)](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/ci.yml)
+[![Code Quality](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/code-quality.yml/badge.svg)](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/code-quality.yml)
+[![Deterministic Testing](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/deterministic-testing.yml/badge.svg)](https://github.com/AXI0MH1VE/AxiomWarxp/actions/workflows/deterministic-testing.yml)
+
+### 🛠️ Local Development Setup
+
 ```bash
-# Clone the repository
-git clone https://github.com/AxiomHive/AxiomWarxp.git
+# Clone repository
+git clone https://github.com/AXI0MH1VE/AxiomWarxp.git
 cd AxiomWarxp
 
-# Install Python dependencies
+# Install dependencies
 pip install -r requirements.txt
+pip install -r requirements-test.txt
 
-# Build all components
-python build.py
-
-# Verify boot state
-python ARTIFACTS/genesis_refractor.py
-```
-
-### Component-Specific Setup
-
-#### DevDollz Agents
-```bash
-cd DevDollz
-docker-compose up -d
-```
-
-#### Axiom Command Center
-```bash
-cd axiom-command-center
-npm install
-npm run dev
-```
-
-#### Axiom Terminal
-```bash
-cd axiom-terminal
-npm install
-npm run tauri build
-```
-
-## Usage
-
-### Basic Operation
-```python
-from ARTIFACTS.genesis_refractor import GenesisRefractor
-
-refractor = GenesisRefractor()
-print(refractor.emit_boot_state())  # BOOT_STATE: VERIFIED; GITHUB_AUTH: TRUE
-
-intent = "Deploy sovereign AI infrastructure"
-refractor.reasoning_loop(intent)
-
-equilibrium = refractor.get_equilibrium()
-print(f"Equilibrium: {equilibrium['equilibrium']}")
-```
-
-### Advanced Configuration
-- Set `AXIOMHIVE_SOVEREIGN=true` for full sovereignty mode
-- Configure entropy thresholds in `ARTIFACTS/adag_config.json`
-- Mount persistent ledger at `/var/axiomhive/ledger`
-
-## Deployment
-
-### Sovereign Infrastructure
-- **Stateless Design**: Enables serverless deployment
-- **Minimal Dependencies**: Reduces attack surface
-- **Containerized**: Docker support for portability
-
-### GitHub Integration
-Every emission is automatically:
-- Committed to local git
-- Pushed to AxiomHive repositories
-- Tagged with BLAKE3 hashes
-- Verified against remote state
-
-### Scaling Considerations
-- **Latency**: <1ms A-DAG validation, <100ms artifact generation
-- **Throughput**: O(n) equilibrium checks where n = ledger size
-- **Cost**: Zero platform fees, minimal infrastructure requirements
-
-## Validation & Testing
-
-### Integrity Verification
-```bash
 # Run validation suite
 python -m pytest VALIDATION/ -v
 
@@ -205,6 +145,7 @@ python ARTIFACTS/genesis_refractor.py --validate
 ```
 
 ### Security Auditing
+
 - **Zero-knowledge proofs** for emission verification
 - **Cryptographic signatures** on all artifacts
 - **Immutable audit trails** via GitHub
@@ -212,6 +153,7 @@ python ARTIFACTS/genesis_refractor.py --validate
 ## Contributing
 
 ### Development Workflow
+
 1. Fork the repository
 2. Create feature branch: `git checkout -b feature/your-feature`
 3. Implement changes with sovereignty principles
@@ -219,6 +161,7 @@ python ARTIFACTS/genesis_refractor.py --validate
 5. Submit pull request with A-DAG linkage
 
 ### Code Standards
+
 - **Determinism**: All functions must be deterministic
 - **Traceability**: Every change linked to intent
 - **Sovereignty**: No external API dependencies
@@ -233,6 +176,7 @@ This software is proprietary and confidential. Redistribution, modification, or 
 ## Contact & Support
 
 For inquiries regarding licensing, partnerships, or technical support:
+
 - **Email**: alexis@axiomhive.com
 - **GitHub**: https://github.com/AxiomHive/AxiomWarxp
 - **Documentation**: See individual component READMEs
