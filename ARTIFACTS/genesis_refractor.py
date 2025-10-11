@@ -11,7 +11,7 @@ import subprocess
 import os
 from typing import Dict, Any
 try:
-    import blake3
+    import blake3  # type: ignore
 except ImportError:
     blake3 = None  # Fallback if not installed
 
@@ -105,8 +105,10 @@ class GenesisRefractor:
             plan = Forge.propose(node)
             score = Oracle.validate(plan)
             Hadrian.commit(node, score)
-            hash_val = blake3.blake3(plan.__str__().encode()).hexdigest() if blake3 else hashlib.sha256(str(plan).encode()).hexdigest()
-            self.ledger.record(node, hash_val)
+            hash_val = hashlib.sha256(str(plan).encode()).hexdigest()
+            if blake3:
+                hash_val = blake3.blake3(plan.__str__().encode()).hexdigest()  # type: ignore
+            self.ledger.record(node, hash_val)  # type: ignore
             GitHub.sync(node, repo="AxiomHive/Escalation-Cascade")
             self.current_entropy = self.calculate_entropy(str(node))
             if self.current_entropy <= 1e-11:
