@@ -1,6 +1,6 @@
 # DEPLOYMENT.md
 
-## Operational Playbook for AxiomHive Genesis Refractor vΩ.1
+## Operational Playbook for AxiomHive Genesis Refractor vΩ.2 (Escalation Cascade — Sovereign Audit Runtime)
 
 ### Prerequisites
 - Python 3.8+
