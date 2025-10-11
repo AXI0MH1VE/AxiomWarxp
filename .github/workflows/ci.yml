@@ -167,12 +167,7 @@ jobs:
       - name: Validate A-DAG ledger
         run: |
           if [ -f ARTIFACTS/ledger_schema.json ]; then
-            python -c "
-import json
-with open('ARTIFACTS/ledger_schema.json', 'r') as f:
-    schema = json.load(f)
-print('A-DAG schema validated')
-"
+            python -c 'import json; f = open("ARTIFACTS/ledger_schema.json", "r"); schema = json.load(f); print("A-DAG schema validated")'
           else
             echo "ledger_schema.json not found, skipping validation"
           fi
