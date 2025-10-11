@@ -6,6 +6,7 @@
 - Python 3.8+
 - Rust 1.70+
 - Git
+- GitHub SSH or HTTPS credentials configured
 - Docker (optional for containerized deployment)
 
 ### Build Commands
@@ -21,10 +22,12 @@ python -m compileall . -q
 ```
 
 ### Deployment Steps
-1. **Genesis Boot**: Run `python ARTIFACTS/genesis_refractor.py` to verify BOOT_STATE.
-2. **Ledger Initialization**: Load `ARTIFACTS/adag_config.json` and initialize A-DAG.
-3. **Artifact Deployment**: Deploy generated artifacts to sovereign infrastructure.
-4. **Audit Verification**: Run validation against `ARTIFACTS/ledger_schema.json`.
+1. **Genesis Boot**: Run `python ARTIFACTS/genesis_refractor.py` to verify BOOT_STATE and GITHUB_AUTH.
+2. **GitHub Repository Setup**: Ensure AxiomHive/<artifact> repository exists or auto-create.
+3. **Ledger Initialization**: Load `ARTIFACTS/adag_config.json` and initialize A-DAG.
+4. **Artifact Deployment**: Deploy generated artifacts to sovereign infrastructure.
+5. **GitHub Synchronization**: Auto-commit and push artifacts to repository.
+6. **Audit Verification**: Run validation against `ARTIFACTS/ledger_schema.json` and GitHub state.
 
 ### Environment Setup
 - Set `AXIOMHIVE_SOVEREIGN=true` to enable full sovereignty mode.
