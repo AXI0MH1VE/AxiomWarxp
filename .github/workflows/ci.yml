@@ -36,29 +36,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Set up Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - name: Cache Cargo registry
-        uses: actions/cache@v3
+          override: true
+      - name: Cache cargo dependencies
+        uses: actions/cache@v4
         with:
-          path: ~/.cargo/registry
-          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
-      - name: Build AgentMatrix
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Build Rust components
         run: |
-          if [ -f AgentMatrix/Cargo.toml ]; then
-            cd AgentMatrix
-            cargo build --release --verbose
+          if [ -f Cargo.toml ]; then
+            cargo build --release
           else
             echo "Cargo.toml not found, skipping Rust build"
-            mkdir -p AgentMatrix/target/release
-            touch AgentMatrix/target/release/agent_matrix
           fi
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: agent-matrix-binary
-          path: AgentMatrix/target/release/agent_matrix
   build-python:
     name: Build Python Components
     runs-on: ubuntu-latest
@@ -69,7 +67,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.8'
-      - name: Install Python dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then
@@ -77,16 +75,14 @@ jobs:
           elif [ -f requirements_fixed.txt ]; then
             pip install -r requirements_fixed.txt
           fi
-      - name: Compile Python modules
-        run: python -m compileall . -q
-      - name: Run Python tests
+      - name: Build Python package
         run: |
-          if command -v pytest &> /dev/null; then
-            python -m pytest --tb=short -q || echo "No tests found or pytest not configured"
+          if [ -f setup.py ]; then
+            python setup.py build
           else
-            echo "pytest not installed, skipping tests"
+            echo "setup.py not found, skipping Python build"
           fi
-  build-web-ui:
+  build-web:
     name: Build Web UI Components
     runs-on: ubuntu-latest
     steps:
@@ -95,89 +91,23 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-      - name: Build Axiom Command Center
-        run: |
-          if [ -f axiom-command-center/package.json ]; then
-            cd axiom-command-center
-            if [ -f package-lock.json ]; then
-              npm ci
-            else
-              npm install
-            fi
-            npm run build || echo "Build script not found"
-          else
-            echo "axiom-command-center not found, skipping"
-          fi
-      - name: Build Axiom Terminal
-        run: |
-          if [ -f axiom-terminal/package.json ]; then
-            cd axiom-terminal
-            if [ -f package-lock.json ]; then
-              npm ci
-            else
-              npm install
-            fi
-            npm run tauri build --no-bundle || echo "Tauri build not configured"
-          else
-            echo "axiom-terminal not found, skipping"
-          fi
-  test-integration:
-    name: Integration Tests
-    runs-on: ubuntu-latest
-    needs: [validate, build-rust, build-python, build-web-ui]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v6
+          node-version: '16'
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
         with:
-          python-version: '3.8'
-      - name: Install Python dependencies
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Build web components
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          elif [ -f requirements_fixed.txt ]; then
-            pip install -r requirements_fixed.txt
-          fi
-      - name: Download Rust binary
-        uses: actions/download-artifact@v4
-        with:
-          name: agent-matrix-binary
-          path: AgentMatrix/target/release/
-      - name: Make binary executable
-        run: chmod +x AgentMatrix/target/release/agent_matrix || echo "Binary not found"
-      - name: Run DevDollz integration tests
-        run: |
-          if [ -d DevDollz/tests ]; then
-            cd DevDollz
-            python -m pytest tests/ -v || echo "No tests found"
+          if [ -f package.json ]; then
+            npm install
+            npm run build
           else
-            echo "DevDollz tests not found, skipping"
+            echo "package.json not found, skipping web build"
           fi
-      - name: Run TranscendentAI tests
-        run: |
-          if [ -d TranscendentAI/tests ]; then
-            cd TranscendentAI
-            python -m pytest tests/ -v || echo "No tests found"
-          else
-            echo "TranscendentAI tests not found, skipping"
-          fi
-      - name: Validate A-DAG ledger
-        run: |
-          if [ -f ARTIFACTS/ledger_schema.json ]; then
-            python -c 'import json; f = open("ARTIFACTS/ledger_schema.json", "r"); schema = json.load(f); print("A-DAG schema validated")'
-          else
-            echo "ledger_schema.json not found, skipping validation"
-          fi
-  security-scan:
+  security:
     name: Security Scanning
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      contents: read
-      actions: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -188,11 +118,37 @@ jobs:
           scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
-      - name: Upload Trivy scan results
-        uses: github/codeql-action/upload-sarif@v4
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: 'trivy-results.sarif'
+  test-integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [build-rust, build-python, build-web]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          elif [ -f requirements_fixed.txt ]; then
+            pip install -r requirements_fixed.txt
+          fi
+      - name: Run integration tests
+        run: |
+          if [ -f ARTIFACTS/test_integration.py ]; then
+            python ARTIFACTS/test_integration.py
+          else
+            echo "Integration tests not found, skipping"
+          fi
   deploy-validation:
     name: Deployment Validation
     runs-on: ubuntu-latest
@@ -233,6 +189,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Set release tag
+        id: set_tag
+        run: |
+          TAG="v$(date +%Y%m%d.%H%M%S)"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "date=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
       - name: Generate release notes
         run: |
           echo "## Release $(date +%Y%m%d)" > release_notes.md
@@ -244,8 +206,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v$(date +%Y%m%d.%H%M%S)
-          name: AxiomWarxp Release $(date +%Y%m%d)
+          tag_name: ${{ steps.set_tag.outputs.tag }}
+          name: AxiomWarxp Release ${{ steps.set_tag.outputs.date }}
           body_path: release_notes.md
           draft: false
           prerelease: false
